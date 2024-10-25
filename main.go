@@ -62,8 +62,7 @@ func run(filenames []string, op string, column int, out io.Writer) error {
 		}
 	}()
 
-	// Loop through all files and create a goroutine to process
-	// each one concurrently
+	// Create a queue for each CPU and fetch filenames from a channel
 	for i := 0; i < runtime.NumCPU(); i++ {
 		wg.Add(1)
 		go func() {
