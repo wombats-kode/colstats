@@ -31,17 +31,21 @@ func csv2float(r io.Reader, column int) ([]float64, error) {
 	// Adjust for a 0 based index
 	column--
 
-	// Read in all CSV data
-	allData, err := cr.ReadAll()
-	if err != nil {
-		return nil, fmt.Errorf("cannot read data from file: %w", err)
-	}
-
 	// Variable to hold converted data
 	var data []float64
 
 	// Looping through all records
-	for i, row := range allData {
+	for i := 0; ; i++ {
+		// Read one row at a time
+		row, err := cr.Read()
+		// Break if we are at the end of file.
+		if err == io.EOF {
+			break
+		}
+
+		if err != nil {
+			return nil, fmt.Errorf("cannot read data from file: %w", err)
+		}
 		// file does not have that many columns
 		if i == 0 {
 			continue

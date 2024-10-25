@@ -1,0 +1,7 @@
+benchresults*.txt
+colstats
+colstats.test
+colStatsBenchmarkData.tar.gz
+*.pprof
+testdata/benchmark/*
+*.out
